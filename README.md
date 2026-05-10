@@ -99,17 +99,16 @@ Validation of weight impact on torque. The critique that "weight is not a concer
     *   Lever Arm: Standard Z (~100 mm)
     *   **Static Torque:** $1.8 \text{ kg} \times 0.1 \text{ m} = \mathbf{0.18 \text{ kg}\cdot\text{m}}$
 *   **Tall-Boy Hybrid (With Thin-Wall Stainless Pipes):**
-    *   Tool: Brushless Spindle (~0.4 kg)
-    *   Tool Lever Arm: Extended Z (~500 mm) -> Torque = 0.20 kg·m.
-    *   **Pipe Weight Factor:** Two 24" Thin-Wall Stainless Pipes (~0.65 kg total). Center of Gravity (CoG) is at midpoint (250 mm).
-    *   Pipe Torque: $0.65 \text{ kg} \times 0.25 \text{ m} = 0.16 \text{ kg}\cdot\text{m}$.
-    *   **Total Static Torque:** $0.20 \text{ (Tool)} + 0.16 \text{ (Pipes)} = \mathbf{0.36 \text{ kg}\cdot\text{m}}$.
+    *   Tool: Brushless Spindle (~0.4 kg) at full lever arm (500 mm) → 0.200 kg·m
+    *   **Pipe Weight Factor:** Two 24" Thin-Wall Stainless Pipes (~1.18 kg total). Center of Gravity (CoG) is at midpoint (300 mm).
+    *   Pipe Torque: $1.18 \text{ kg} \times 0.3 \text{ m} = 0.355 \text{ kg}\cdot\text{m}$.
+    *   **Total Static Torque:** $0.200 \text{ (Tool)} + 0.355 \text{ (Pipes)} = \mathbf{0.555 \text{ kg}\cdot\text{m}}$.
 *   **Tall-Boy Hybrid (With Heavy DOM Pipes - Hypothetical):**
-    *   Pipe Weight: Two 24" DOM Pipes (~1.0 kg total).
-    *   Pipe Torque: $1.0 \text{ kg} \times 0.25 \text{ m} = 0.25 \text{ kg}\cdot\text{m}$.
-    *   **Total Static Torque:** $0.20 \text{ (Tool)} + 0.25 \text{ (Pipes)} = \mathbf{0.45 \text{ kg}\cdot\text{m}}$.
+    *   Pipe Weight: Two 24" DOM Pipes (~1.63 kg total).
+    *   Pipe Torque: $1.63 \text{ kg} \times 0.3 \text{ m} = 0.490 \text{ kg}\cdot\text{m}$.
+    *   **Total Static Torque:** $0.200 \text{ (Tool)} + 0.490 \text{ (Pipes)} = \mathbf{0.690 \text{ kg}\cdot\text{m}}$.
 
-**Result:** The "Tall-Boy" with Stainless pipes leans only **~2x** more than the Standard Build, despite being **5x taller**. Using heavy DOM would increase the lean by **25%** and significantly destabilize the machine. Weight reduction directly buys the height.
+**Result:** The "Tall-Boy" with Stainless pipes leans only **~3x** more than the Standard Build, despite being **5x taller**. Using heavy DOM would increase the lean torque by **~25%**. Weight reduction directly buys the height.
 
 ### C. Dynamic Load Analysis (The Cutting Force)
 Validation of cutting force limits on a 500mm lever arm.
@@ -217,57 +216,6 @@ A common critique of high RPM on lighter frames is "rubbing" (generating heat).
 
 This "Tall-Boy" architecture scales effectively to industrial applications where space and budget are constrained but versatility is required.
 
-### The "Hybrid" Workflow
-In an industrial setting, a single machine performing Additive (3D Printing) and Subtractive (CNC) operations offers unique capabilities:
-1.  **Perfect Tolerances:** Print a part "near net shape" (oversized), then switch to CNC mode to machine bearing holes and flat faces to **+/- 0.01mm precision**.
-2.  **Mold Making:** 3D print a mold insert, then CNC mill the cavity surface to a mirror polish for release.
-3.  **Repair:** CNC mill off damaged geometry, then 3D print new structural features directly onto the existing part.
-4.  **Fiber-Reinforced Printing:** High-end hybrids print continuous fiber (Carbon Fiber) and then CNC mill it. This is the strongest way to make composite parts.
-
----
-
-## 9. Bill of Materials (BOM)
-
-**Structural (The Skeleton)**
-*   [ ] **Moving Tubing:** 1" (25.4mm) **Thin-Wall Stainless Steel Tubing** (0.049"-0.065" wall).
-*   [ ] **Leg Tubing:** 1" (25.4mm) **DOM Steel** or Black Pipe (Thick wall).
-*   [ ] **Fasteners:** M3/M4/M5 Socket Head Screws & Locknuts.
-*   [ ] **Bed:** Flat MDF or Plywood sheet.
-
-**Motion (The Muscles)**
-*   [ ] **Bearings:** ~28x 608ZZ Bearings.
-*   [ ] **Belts:** GT2 Belt (6 meters).
-*   [ ] **Pulleys:** 4x GT2 Pulleys (20 Tooth).
-*   [ ] **Lead Screw:** 1x T8 Lead Screw (Extended).
-
-**Electronics (The Nerves)**
-*   [ ] **Controller:** BTT SKR Pico or SKR Pro.
-*   [ ] **Motors:** 5x NEMA 17 Stepper Motors.
-*   [ ] **Spindle:** 3542/4248 Brushless Motor + 30A ESC.
-*   [ ] **Print Head:** V6-Clone Hotend + Bowden Extruder.
-*   [ ] **Power:** 24V PSU.
-
-**3D Printed Parts (The Joints)**
-*   [ ] **MPCNC Primo Core & Rollers:** Version J (25.4mm).
-*   [ ] **"Roof" Brace:** Custom top cross-brace (Optional but recommended).
-
----
-
-## 10. Final Performance Summary
-
-The **High-Speed "Tall-Boy" Hybrid** represents the optimal convergence of cost, rigidity, and speed.
-1.  **Vs. Standard CNC:** It solves the speed bottleneck through mass reduction.
-2.  **Vs. Converted 3D Printer:** It solves the rigidity bottleneck through the Roller-Gantry architecture and Portal Frame.
-3.  **Vs. Linear Rail Machines:** It solves the cost bottleneck by utilizing conduit and printed parts.
-
-**Result:** A machine capable of milling isolation traces on a PCB at noon and printing a tall vase at midnight, on a simple flat table, for a fraction of the cost of comparable systems.
-
----
-
-## 11. Industrial Scaling & Broader Implications
-
-The "Tall-Boy" validates a new engineering philosophy: **Minimum Viable Rigidity**. By minimizing the force generation (lightweight spindle + HSM) and maximizing geometric stiffness (Portal Frame), we decouple capability from mass. This has profound implications for scaling.
-
 ### A. The "Cost Curve" Disruption
 Traditional industrial scaling dictates that rigidity requirements scale with the cube of the span ($L^3$). To double the height of a standard cantilever machine, costs often increase 8x due to the need for massive cast iron frames and foundations.
 **The Tall-Boy Scaling Law:** By decoupling tool mass from capability, the cost curve flattens.
@@ -293,19 +241,14 @@ Traditional industrial scaling dictates that rigidity requirements scale with th
 The most critical strategic implication is **Distributed Manufacturing**.
 *   **Manufacturing Node in a Backpack:** The machine disassembles into pipes/prints, runs on 24V (solar/battery), and offers both Additive (print) and Subtractive (precision mill) capabilities.
 *   **Logistics Shift:** Changes logistics from "Shipping Parts" to "Shipping Files."
-*   **Strategic Value:** In contested environments (e.g., Ukraine), this allows forward operating bases to manufacture drone frames, repair brackets, and precision parts on-demand, without waiting for vulnerable supply chains.
+*   **Strategic Value:** In contested environments, this allows forward operating bases to manufacture drone frames, repair brackets, and precision parts on-demand, without waiting for vulnerable supply chains.
 *   **Resilience:** Low cost (~$200 vs $100k industrial systems) makes the nodes expendable. Loss of a node does not cripple production capacity.
-
-### D. Limits & Evolution
-This architecture excels in **Large-Volume, Low-to-Medium Force** applications. It does not seek to replace heavy metal removal or micron-level metrology.
-*   **The Limit:** Vibration modes eventually dominate at extreme scales.
-*   **The Evolution:** At very large scales (30m+), the architecture naturally evolves into **Cable Robots**, **Stewart Platforms**, or **Adaptive Trusses**, utilizing active damping and resonance cancellation (advanced Klipper-style input shaping) to maintain stability.
 
 ---
 
-## 12. Material Evolution at Scale
+## 9. Material Evolution at Scale
 
-As the "Tall-Boy" architecture scales from desktop to industrial, the material strategy evolves to handle new physics constraints.
+As the "Tall-Boy" architecture scales from desktop to industrial, the material strategy evolves to handle new physics constraints. **Diameter Beats Weight**—Stiffness scales with the cube of diameter ($D^3$), while weight scales linearly. By up-sizing pipe diameter, we gain rigidity exponentially faster than mass.
 
 | Scale | Span | Joint Material | Rail Type | Reason |
 | :--- | :--- | :--- | :--- | :--- |
@@ -313,3 +256,59 @@ As the "Tall-Boy" architecture scales from desktop to industrial, the material s
 | **Garage / Shop** | 1m - 3m | **3D Printed (Nylon/CF)** or **CNC Wood** | DOM Steel Tubing | Nylon is tougher; wood handles vibration well. Inertia increases. |
 | **Industrial** | 3m - 10m | **CNC Machined Aluminum** | Steel Box Tube / V-Wheels | Aluminum joints handle the stress of heavy gantries. |
 | **Super-Scale** | 10m - 20m+ | **CNC Machined Steel / Cast Iron** | **Truss Systems / Rack & Pinion** | Steel joints required for maximum rigidity. |
+
+---
+
+## 10. Cost Analysis: The "Million Dollar" Gap
+
+Traditional industrial CNCs scale exponentially in cost. Moving from a 1m span to a 5m span often requires cast iron frames, concrete foundations, and expensive servo systems, pushing costs from $50k to $1M+.
+
+The **Tall-Boy Architecture** scales linearly.
+*   **Joints:** Evolve from 3D Printed ($0.50) to Machined Aluminum ($20).
+*   **Rails:** Evolve from Stainless Tube to Steel Truss/Box Tube.
+*   **Result:** A 5-meter span hybrid machine costs roughly **$5,500**, delivering 90% of the functional capability (for light manufacturing) at 1% of the cost.
+
+**Estimated Cost Breakdown (Industrial 5m Scale):**
+1.  **Joints (Machined Aluminum):** ~$2,000.
+2.  **Rails (Steel Box Tube/Truss):** ~$1,500.
+3.  **Motors/Drive (NEMA 23/Servos):** ~$1,500.
+4.  **Electronics:** ~$500.
+*   **Total:** **~$5,500**.
+
+---
+
+## 11. Bill of Materials (BOM)
+
+**Structural (The Skeleton)**
+*   [ ] **Moving Tubing:** 1" (25.4mm) **Thin-Wall Stainless Steel Tubing** (0.049"-0.065" wall).
+*   [ ] **Leg Tubing:** 1" (25.4mm) **DOM Steel** or Black Pipe (Thick wall).
+*   [ ] **Fasteners:** M3/M4/M5 Socket Head Screws & Locknuts.
+*   [ ] **Bed:** Flat MDF or Plywood sheet.
+
+**Motion (The Muscles)**
+*   [ ] **Bearings:** ~28x 608ZZ Bearings.
+*   [ ] **Belts:** GT2 Belt (6 meters).
+*   [ ] **Pulleys:** 4x GT2 Pulleys (20 Tooth).
+*   [ ] **Lead Screw:** 1x T8 Lead Screw (Extended).
+
+**Electronics (The Nerves)**
+*   [ ] **Controller:** BTT SKR Pico or SKR Pro.
+*   [ ] **Motors:** 5x NEMA 17 Stepper Motors.
+*   [ ] **Spindle:** 3542/4248 Brushless Motor + 30A ESC.
+*   [ ] **Print Head:** V6-Clone Hotend + Bowden Extruder.
+*   [ ] **Power:** 24V PSU.
+
+**3D Printed Parts (The Joints)**
+*   [ ] **MPCNC Primo Core & Rollers:** Version J (25.4mm).
+*   [ ] **"Roof" Brace:** Custom top cross-brace (Recommended).
+
+---
+
+## 12. Final Performance Summary
+
+The **High-Speed "Tall-Boy" Hybrid** represents the optimal convergence of cost, rigidity, and speed.
+1.  **Vs. Standard CNC:** It solves the speed bottleneck through mass reduction.
+2.  **Vs. Converted 3D Printer:** It solves the rigidity bottleneck through the Roller-Gantry architecture and Portal Frame.
+3.  **Vs. Linear Rail Machines:** It solves the cost bottleneck by utilizing conduit and printed parts.
+
+**Result:** A machine capable of milling isolation traces on a PCB at noon and printing a tall vase at midnight, on a simple flat table, for a fraction of the cost of comparable systems.
