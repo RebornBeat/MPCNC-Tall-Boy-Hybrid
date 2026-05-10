@@ -91,19 +91,25 @@ The justification for the "Tall-Boy" design lies in the analysis of moving mass 
 **Conclusion:** By reducing the moving mass from ~4.7kg to ~1.6kg, the "Tall-Boy" Hybrid achieves an acceleration profile 300% faster than a standard MPCNC.
 
 ### B. Static Load Analysis (The "Lean")
-Validation of weight impact on torque. The critique that "weight is not a concern" was tested mathematically.
+Validation of weight impact on torque. The critique that "weight is not a concern" was tested mathematically, including the often-overlooked weight of the pipes themselves.
 
 *   **Formula:** $Torque = Mass \times Lever Arm$
 *   **Standard MPCNC:**
     *   Tool: Makita Router (~1.8 kg)
     *   Lever Arm: Standard Z (~100 mm)
     *   **Static Torque:** $1.8 \text{ kg} \times 0.1 \text{ m} = \mathbf{0.18 \text{ kg}\cdot\text{m}}$
-*   **Tall-Boy Hybrid:**
+*   **Tall-Boy Hybrid (With Thin-Wall Stainless Pipes):**
     *   Tool: Brushless Spindle (~0.4 kg)
-    *   Lever Arm: Extended Z (~500 mm)
-    *   **Static Torque:** $0.4 \text{ kg} \times 0.5 \text{ m} = \mathbf{0.20 \text{ kg}\cdot\text{m}}$
+    *   Tool Lever Arm: Extended Z (~500 mm) -> Torque = 0.20 kg·m.
+    *   **Pipe Weight Factor:** Two 24" Thin-Wall Stainless Pipes (~0.65 kg total). Center of Gravity (CoG) is at midpoint (250 mm).
+    *   Pipe Torque: $0.65 \text{ kg} \times 0.25 \text{ m} = 0.16 \text{ kg}\cdot\text{m}$.
+    *   **Total Static Torque:** $0.20 \text{ (Tool)} + 0.16 \text{ (Pipes)} = \mathbf{0.36 \text{ kg}\cdot\text{m}}$.
+*   **Tall-Boy Hybrid (With Heavy DOM Pipes - Hypothetical):**
+    *   Pipe Weight: Two 24" DOM Pipes (~1.0 kg total).
+    *   Pipe Torque: $1.0 \text{ kg} \times 0.25 \text{ m} = 0.25 \text{ kg}\cdot\text{m}$.
+    *   **Total Static Torque:** $0.20 \text{ (Tool)} + 0.25 \text{ (Pipes)} = \mathbf{0.45 \text{ kg}\cdot\text{m}}$.
 
-**Result:** The "Tall-Boy" leans only **~10% more** than the Standard Build, despite being **5x taller**. Weight reduction directly buys the height.
+**Result:** The "Tall-Boy" with Stainless pipes leans only **~2x** more than the Standard Build, despite being **5x taller**. Using heavy DOM would increase the lean by **25%** and significantly destabilize the machine. Weight reduction directly buys the height.
 
 ### C. Dynamic Load Analysis (The Cutting Force)
 Validation of cutting force limits on a 500mm lever arm.
@@ -124,14 +130,17 @@ Validation of cutting force limits on a 500mm lever arm.
 
 ## 5. Mechanical Architecture: The "Tall-Boy" Specification
 
-### A. The Frame (The Skeleton)
-We retain the MPCNC Primo "Roller-Gantry" geometry but specify material upgrades.
+### A. The Frame (The Skeleton) - Hybrid Material Strategy
+We retain the MPCNC Primo "Roller-Gantry" geometry but specify a **Hybrid Material Strategy** optimized for stability and dynamics.
 
-*   **Tubing:** **1" (25.4mm) Stainless Steel Tubing.**
-    *   *Why:* Stainless steel offers 3x the stiffness (modulus of elasticity) of standard EMT conduit. The smooth surface reduces friction on bearings, enabling higher speeds.
-    *   *Dimensions:*
-        *   **X/Y Pipes:** Standard length (determined by work area).
-        *   **Z Pipes (The "Tall-Boy" Mod):** Extended to **18" - 24"** (vs standard 12"). This provides the vertical clearance for 3D printing without a drop table.
+*   **Moving Pipes (X, Y, Z):** **1" (25.4mm) Thin-Wall Stainless Steel Tubing.**
+    *   *Wall Thickness:* 0.049" - 0.065" (1.25mm - 1.65mm).
+    *   *Why Stainless?*
+        1.  **Low Inertia:** Minimizes moving mass, which directly reduces the "Lean" torque (validated in Section 4B) and prevents "ringing" during high-speed 3D printing.
+        2.  **Roller Performance:** Smooth surface finish reduces friction on 608ZZ bearings, extending bearing life and reducing noise.
+        3.  **Stiffness-to-Weight:** Offers excellent rigidity for the weight, essential for the tall Z-axis.
+*   **Stationary Legs (Frame):** **1" DOM Steel or Black Pipe.**
+    *   *Why DOM?* These parts do not move. Heavier, thicker walls here provide a "Rock" solid foundation that anchors the machine and dampens vibration. Surface finish is irrelevant here, so cheaper materials are used.
 
 ### B. The "Roof" Brace (The Portal Frame)
 *   **Component:** A 3D-printed rigid cross-brace connecting the tops of the two Z-pipes.
@@ -220,7 +229,8 @@ In an industrial setting, a single machine performing Additive (3D Printing) and
 ## 9. Bill of Materials (BOM)
 
 **Structural (The Skeleton)**
-*   [ ] **Tubing:** 1" (25.4mm) Stainless Steel Tubing.
+*   [ ] **Moving Tubing:** 1" (25.4mm) **Thin-Wall Stainless Steel Tubing** (0.049"-0.065" wall).
+*   [ ] **Leg Tubing:** 1" (25.4mm) **DOM Steel** or Black Pipe (Thick wall).
 *   [ ] **Fasteners:** M3/M4/M5 Socket Head Screws & Locknuts.
 *   [ ] **Bed:** Flat MDF or Plywood sheet.
 
@@ -247,7 +257,7 @@ In an industrial setting, a single machine performing Additive (3D Printing) and
 
 The **High-Speed "Tall-Boy" Hybrid** represents the optimal convergence of cost, rigidity, and speed.
 1.  **Vs. Standard CNC:** It solves the speed bottleneck through mass reduction.
-2.  **Vs. Converted 3D Printer:** It solves the rigidity bottleneck through the Roller-Gantry architecture and optional Portal Frame.
+2.  **Vs. Converted 3D Printer:** It solves the rigidity bottleneck through the Roller-Gantry architecture and Portal Frame.
 3.  **Vs. Linear Rail Machines:** It solves the cost bottleneck by utilizing conduit and printed parts.
 
 **Result:** A machine capable of milling isolation traces on a PCB at noon and printing a tall vase at midnight, on a simple flat table, for a fraction of the cost of comparable systems.
@@ -290,3 +300,16 @@ The most critical strategic implication is **Distributed Manufacturing**.
 This architecture excels in **Large-Volume, Low-to-Medium Force** applications. It does not seek to replace heavy metal removal or micron-level metrology.
 *   **The Limit:** Vibration modes eventually dominate at extreme scales.
 *   **The Evolution:** At very large scales (30m+), the architecture naturally evolves into **Cable Robots**, **Stewart Platforms**, or **Adaptive Trusses**, utilizing active damping and resonance cancellation (advanced Klipper-style input shaping) to maintain stability.
+
+---
+
+## 12. Material Evolution at Scale
+
+As the "Tall-Boy" architecture scales from desktop to industrial, the material strategy evolves to handle new physics constraints.
+
+| Scale | Span | Joint Material | Rail Type | Reason |
+| :--- | :--- | :--- | :--- | :--- |
+| **Desktop (Tall-Boy)** | < 1m | **3D Printed (PLA/PETG)** | Thin-Wall SS Conduit | Plastic is cheap, strong enough for light loads. Low inertia is key. |
+| **Garage / Shop** | 1m - 3m | **3D Printed (Nylon/CF)** or **CNC Wood** | DOM Steel Tubing | Nylon is tougher; wood handles vibration well. Inertia increases. |
+| **Industrial** | 3m - 10m | **CNC Machined Aluminum** | Steel Box Tube / V-Wheels | Aluminum joints handle the stress of heavy gantries. |
+| **Super-Scale** | 10m - 20m+ | **CNC Machined Steel / Cast Iron** | **Truss Systems / Rack & Pinion** | Steel joints required for maximum rigidity. |
