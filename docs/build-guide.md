@@ -35,7 +35,7 @@ This guide integrates the standard MPCNC Primo assembly process with the specifi
 **1. Material Selection:**
 *   **Moving Pipes (X, Y, Z):** **1" (25.4mm) OD Thin-Wall Stainless Steel Tubing.**
     *   *Spec:* Wall thickness **0.049" - 0.065"** (1.25mm - 1.65mm).
-    *   *Constraint:* Do NOT use thick-wall DOM here. The weight penalty increases the "lean" torque by 25% and kills acceleration.
+    *   *Constraint:* Do NOT use thick-wall DOM here. The weight penalty increases the "lean" torque by ~25% and kills acceleration.
     *   *Finish:* Request "Seamless" or "Drawn" for best straightness.
 *   **Stationary Legs (Frame):** **1" (25.4mm) DOM Steel** or **Black Iron Pipe**.
     *   *Spec:* Thick wall (Schedule 40 or DOM 0.095").
@@ -107,6 +107,9 @@ This step converts the Z-axis from a wobbly lever into a rigid box.
 **2. Profiles:**
 *   **CNC Mode:** Disable `heater_pin` and `sensor_pin` safety checks. Map E-stepper to Spindle RPM.
 *   **Print Mode:** Enable heaters and extruder. Calibrate `rotation_distance` for your Bowden setup.
+
+**3. The Cutting Strategy (HSM):**
+*   To avoid "rubbing" (heat) while keeping forces low: Maintain high **Feed Rate** to ensure chips fly and cool the bit. Reduce **Depth of Cut** to 0.3mm-0.5mm to keep lateral force within the 4N-8N safe zone.
 
 ---
 
