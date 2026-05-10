@@ -41,10 +41,10 @@ Because the tool head is lightweight, the "Lever Arm" effect is neutralized.
 *   **Result:** A machine that maintains rigidity for PCB milling but possesses the vertical clearance required for 3D printing, all on a simple, flat table.
 
 ### Phase 4: The "Portal Frame" Optimization (The Roof)
-Further analysis revealed that while mass was solved, the *geometry* of a long lever still presented a risk for dynamic flex. The solution is not a complex pulley system, but a structural "Roof."
+Further analysis revealed that while mass was solved, the *geometry* of a long lever still presented a risk for dynamic flex under cutting loads. The solution is not a complex pulley system, but a structural "Roof."
 *   **The Concept:** Connecting the tops of the two Z-pipes with a rigid cross-brace.
 *   **The Physics:** This transforms the Z-axis from a "U" shape (open loop) to an "O" shape (closed loop/portal frame).
-*   **The Benefit:** This locks the pipes together, forcing them to act as a single structural unit rather than two independent sticks, significantly increasing torsional rigidity without adding complex active stabilization systems.
+*   **The Benefit:** This locks the pipes together, forcing them to act as a single structural unit rather than two independent sticks, significantly increasing torsional rigidity and doubling the effective cutting force limit.
 
 ---
 
@@ -91,22 +91,34 @@ The justification for the "Tall-Boy" design lies in the analysis of moving mass 
 **Conclusion:** By reducing the moving mass from ~4.7kg to ~1.6kg, the "Tall-Boy" Hybrid achieves an acceleration profile 300% faster than a standard MPCNC.
 
 ### B. Static Load Analysis (The "Lean")
-Validation of weight impact on torque.
-*   **Standard MPCNC:** Tool (1.8kg) x Lever (0.1m) = **0.18 kg·m**.
-*   **Tall-Boy Hybrid:** Tool (0.4kg) x Lever (0.5m) = **0.20 kg·m**.
-*   **Result:** The "Tall-Boy" leans only **~10% more** than the Standard Build, despite being **5x taller**. Weight reduction directly buys the height.
+Validation of weight impact on torque. The critique that "weight is not a concern" was tested mathematically.
+
+*   **Formula:** $Torque = Mass \times Lever Arm$
+*   **Standard MPCNC:**
+    *   Tool: Makita Router (~1.8 kg)
+    *   Lever Arm: Standard Z (~100 mm)
+    *   **Static Torque:** $1.8 \text{ kg} \times 0.1 \text{ m} = \mathbf{0.18 \text{ kg}\cdot\text{m}}$
+*   **Tall-Boy Hybrid:**
+    *   Tool: Brushless Spindle (~0.4 kg)
+    *   Lever Arm: Extended Z (~500 mm)
+    *   **Static Torque:** $0.4 \text{ kg} \times 0.5 \text{ m} = \mathbf{0.20 \text{ kg}\cdot\text{m}}$
+
+**Result:** The "Tall-Boy" leans only **~10% more** than the Standard Build, despite being **5x taller**. Weight reduction directly buys the height.
 
 ### C. Dynamic Load Analysis (The Cutting Force)
 Validation of cutting force limits on a 500mm lever arm.
+
 *   **Formula:** $Torque = Force \times Lever Arm$.
-*   **The Limit:** Standard MPCNC handles ~2.0 N·m comfortably.
-*   **Open Z-Axis (No Roof):**
+*   **The Limit:** Standard MPCNC handles about **2.0 N·m** comfortably.
+*   **Scenario A: Open Z-Axis (No Roof)**
+    *   Lever Arm: $0.5 \text{ m}$.
     *   Max Force Allowed: $2.0\text{ N}\cdot\text{m} / 0.5\text{ m} = \mathbf{4\text{ N}}$.
-    *   *Constraint:* Requires High RPM / Shallow Depth of Cut strategies.
-*   **Portal Frame (With Roof):**
-    *   The "Roof" cross-brace effectively doubles the stiffness of the Z-tower.
-    *   New Max Force Allowed: **~8 N**.
-    *   *Benefit:* Allows for standard CNC cutting strategies without "wobble" concerns.
+    *   *Constraint:* Requires specific HSM strategies (High RPM, Shallow Depth of Cut).
+*   **Scenario B: Portal Frame (With "Roof" Brace)**
+    *   The "Roof" cross-brace closes the loop, effectively doubling the stiffness of the Z-tower.
+    *   New Torque Limit: ~4.0 N·m (Structural capacity increases).
+    *   New Max Force Allowed: $4.0\text{ N}\cdot\text{m} / 0.5\text{ m} = \mathbf{8\text{ N}}$.
+    *   *Benefit:* Allows for standard CNC cutting strategies and heavier cuts without "wobble" concerns.
 
 ---
 
@@ -141,6 +153,7 @@ The success of the hybrid depends on using lightweight tools.
     *   *Weight:* ~350g.
     *   *Torque:* High torque at low RPM (12,000 RPM) prevents "slow burn" in aluminum/wood.
     *   *Precision:* Coupled with an **ER11 Collet**, it offers near-zero runout (wobble).
+    *   *Comparison:* Superior to 775 DC motors (which burn out) and Routers (which are too heavy).
 2.  **Print Mode: Bowden Extruder**
     *   *Configuration:* Motor mounted on stationary frame -> PTFE Tube -> Hotend on Gantry.
     *   *Benefit:* Keeps the moving head feather-light.
@@ -185,8 +198,8 @@ To facilitate rapid switching between modes:
 
 ### C. The "Rubbing" vs. "Cutting" Strategy (Addressing the Heat Critique)
 A common critique of high RPM on lighter frames is "rubbing" (generating heat).
-*   **The Trap:** Slowing Feed Rate while keeping RPM high causes rubbing/heat.
-*   **The Solution:** Maintain proper Feed Rate for chip cooling, but reduce **Depth of Cut (DoC)**.
+*   **The Trap:** Slowing **Feed Rate** while keeping RPM high causes rubbing/heat (bad).
+*   **The Solution:** Maintain proper **Feed Rate** for chip cooling, but reduce **Depth of Cut (DoC)**.
     *   *Physics:* This keeps the chip load healthy (cooling the bit) but reduces lateral force on the gantry, keeping the torque within the 4N-8N safe zone.
 
 ---
@@ -200,6 +213,7 @@ In an industrial setting, a single machine performing Additive (3D Printing) and
 1.  **Perfect Tolerances:** Print a part "near net shape" (oversized), then switch to CNC mode to machine bearing holes and flat faces to **+/- 0.01mm precision**.
 2.  **Mold Making:** 3D print a mold insert, then CNC mill the cavity surface to a mirror polish for release.
 3.  **Repair:** CNC mill off damaged geometry, then 3D print new structural features directly onto the existing part.
+4.  **Fiber-Reinforced Printing:** High-end hybrids print continuous fiber (Carbon Fiber) and then CNC mill it. This is the strongest way to make composite parts.
 
 ---
 
